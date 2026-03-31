@@ -1,0 +1,57 @@
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Streamlit
+.streamlit/
+*.streamlit.txt
+
+# Data (keep xlsx for demo, but exclude outputs)
+*.csv
+*.json
+output/
+!output/Claude_Code_Tech_Talk_v4.pptx
+!output/gamma_prompt.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
