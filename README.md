@@ -2,7 +2,7 @@
 
 A production-ready interactive analytics dashboard built in **one session** using Claude Code (Anthropic's terminal-based AI coding tool). Processes 541,909 e-commerce transactions and delivers live KPIs, product analysis, customer insights, and multi-country breakdowns.
 
-**Live demo:** Streamlit web app runs locally — no deployment needed.
+**Live demo:** [https://data-analysis-by-using-ai-claude-code-xxwaqrtgw8nxmxpw2u5mpe.streamlit.app](https://data-analysis-by-using-ai-claude-code-xxwaqrtgw8nxmxpw2u5mpe.streamlit.app)
 
 ---
 
