@@ -49,3 +49,66 @@ After setup is complete, verify everything works by running:
 ```bash
 uv run python -c "import pandas; import openpyxl; import seaborn; import matplotlib; print('All packages installed successfully!')"
 ```
+
+---
+
+# Retail Analytics Demo
+
+**Dataset:** Online Retail.xlsx (541,909 rows, 8 columns)
+
+## Critical Rules
+
+1. **NEVER** delete return/cancellation rows — flag them with `IsCancellation` column only
+2. **GrossRevenue:** calculate from `df_sales` (`IsCancellation=False`)
+3. **Returns:** calculate from **FULL df** (all rows) using `abs(ReturnLineTotal)`
+4. **NetRevenue** = GrossRevenue - Returns
+5. **Always validate:** `df_sales rows + cancellation rows = total rows`
+
+## Column Definitions
+
+| Column | Formula |
+|---|---|
+| `IsCancellation` | `True` if InvoiceNo starts with 'C' **OR** Quantity < 0 |
+| `LineTotal` | Quantity × UnitPrice |
+| `GrossLineTotal` | `clip(LineTotal, lower=0)` → max(LineTotal, 0) |
+| `ReturnLineTotal` | `clip(LineTotal, upper=0)` → min(LineTotal, 0) |
+
+## Validation Checklist
+
+Run after every analysis step:
+
+- [ ] Row count before and after each filter
+- [ ] `sum(GrossLineTotal) + sum(ReturnLineTotal) == sum(LineTotal)`
+- [ ] No `NetRevenue > GrossRevenue`
+- [ ] No `Return Rate > 100%`
+- [ ] No negative AOV
+- [ ] Country/product subtotals sum to grand total
+
+## Tech Stack
+
+- **Streamlit** for dashboard
+- **Plotly** for charts (use `px.bar` with `orientation='h'`, **NOT** `px.barh`)
+- **Pandas** for data processing
+- Use **uv** for running scripts
+
+## Known Pitfalls
+
+- `px.barh` does **not** exist in `plotly.express` — use `px.bar(orientation='h')`
+- For horizontal bar charts: `x` = numeric value, `y` = category
+- `CustomerID` is numeric but should be treated as **category** in charts
+- CSV files: check encoding, delimiter, mixed types before analysis
+
+## KPI Calculation Reference
+
+```python
+df_sales = df[~df["IsCancellation"]]
+
+gross_revenue   = df_sales["GrossLineTotal"].sum()
+total_returns   = abs(df["ReturnLineTotal"].sum())        # FULL df
+net_revenue     = gross_revenue - total_returns
+total_invoices  = df_sales["InvoiceNo"].nunique()
+total_customers = df_sales["CustomerID"].dropna().nunique()
+total_products  = df_sales["StockCode"].nunique()
+aov             = gross_revenue / total_invoices
+return_rate     = total_returns / (gross_revenue + total_returns) * 100
+```
