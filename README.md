@@ -1,3 +1,12 @@
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/bb3dbfdb-d609-486a-9a72-79c601ae24bc" />
+
+
+
+
+
+
+
 # Retail Analytics Dashboard — Built with Claude Code
 
 A production-ready interactive analytics dashboard built in **one session** using Claude Code (Anthropic's terminal-based AI coding tool). Processes 541,909 e-commerce transactions and delivers live KPIs, product analysis, customer insights, and multi-country breakdowns.
